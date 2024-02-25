@@ -1,21 +1,25 @@
-<div class="container">
-
-<h1>My List</h1>
-<img src="/app/assets/images/cinema.jpg" alt="cinema seats">
+<div class="container d-flex flex-column p-3 justify-content-space-between">
+<div class="border-bottom border-1 p-3 border-dark">
+  <h1>My List</h1>
+</div>
 
 <ul>
+<% @lists.each do |list| %>
 
-    <% @lists.each do |list| %>
-  <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/breakfast.jpg)">
-      <li><%= link_to list.name, list_path(list) %></li>
+  <div class="card-category my-3">
+    <li><%= link_to list.name, list_path(list) %></li>
+ </div>
+
+  <div class="p-1">
+    <%= link_to 'Delete list', list_path(list),data: { turbo_method: :delete, turbo_confirm: "Are you sure"}  %>
   </div>
 
-  <%= link_to 'Delete list', list_path(list),data: { turbo_method: :delete, turbo_confirm: "Are you sure"}  %>
-    <% end %>
-
+<% end %>
 </ul>
 
-  <div class="btn btn-dark">
-    <%= link_to 'Crate a new list', new_list_path %>
+<br>
+  <div class="border-top border-1 p-3 border-dark">
+    <%= link_to 'Create a new list', new_list_path %>
   </div>
+
 </div>

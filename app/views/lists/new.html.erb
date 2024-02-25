@@ -1,6 +1,12 @@
-<h1>Create a list</h1>
+<div class="container p-3"
+>
+  <div class="border-bottom border-1 border-dark mb-3">
+    <h1>Create a list</h1>
+  </div>
+<br>
+    <%= simple_form_for(@list) do |f| %>
+      <%= f.input :name %>
+      <%= f.submit "Submit", class: "btn btn-primary" %>
+  <% end %>
 
-<%= simple_form_for(@list) do |f| %>
-  <%= f.input :name %>
-  <%= f.submit "Submit", class: "btn btn-primary" %>
-<% end %>
+</div>

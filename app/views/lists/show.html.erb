@@ -1,26 +1,43 @@
-<h1><%= @list.name %></h1>
+<div class="container p-2">
 
-  <div class="container d-flex p-3">
+<h1 class="border-bottom border-1 p-3 border-dark"><%= @list.name %> movies</h1>
+
+<div class="movies d-flex border-dark border-bottom border-3">
   <% @list.bookmarks.each do |bookmark| %>
 
-  <div class="card" style="width: 18rem;">
-    <img src="<%= bookmark.movie.poster_url %>" width="300" height="300" class="card-img-top" alt="...">
+  <div class="card m-2 border border-dark border-1 shadow p-2 mb-5 bg-body rounded" style="width: 18rem;">
+    <div class="flex-shrink-0">
+      <img src="<%= bookmark.movie.poster_url %>" width="300" height="300" class="card-img-top" alt="...">
+     </div>
 
-    <div class="card-body">
-      <h5 class="card-title"><%= bookmark.movie.title %></h5>
-      <p class="card-text">Overview: <%= bookmark.movie.overview %></p>
-      <p><strong>Comment:</strong> <%= bookmark.comment %></p>
-      <p><strong>Rating ⭐️:</strong> <%= bookmark.movie.rating %></p>
-      <a href="#" class="btn btn-danger"><%= link_to 'Delete', bookmark_path(bookmark), data: { turbo_method: :delete, turbo_confirm: "Are you sure"} %></a>
-    </div>
+      <div class="card-body">
+        <h5 class="card-title"><%= bookmark.movie.title %></h5>
+        <p class="card-text">Overview: <%= bookmark.movie.overview %></p>
+        <p><strong>Rating:</strong> <%= bookmark.movie.rating.to_i %></p>
+        <p><strong>Comment:</strong> <%= bookmark.comment %></p>
+        <a href="#" class="btn btn-danger"><%= link_to 'Delete', bookmark_path(bookmark), data: { turbo_method: :delete, turbo_confirm: "Are you sure"} %></a>
+      </div>
+
   </div>
   <% end %>
 </div>
 
 <br>
 
+<%# <%= link_to 'Add a movie', new_list_bookmark_path(@list) %>
+<div class="d-flex flex-column bd-highlight">
 
-<div class="buttons ml-3">
-  <div class="btn btn-dark"><%= link_to 'Add a movie', new_list_bookmark_path(@list) %>
-  <div class="btn btn-dark"><%= link_to 'Back to lists', lists_path %></div>
+  <div class="form">
+      <%= simple_form_for [@list, @bookmark] do |f| %>
+        <%= f.association :movie %>
+        <%= f.input :comment %>
+        <%= f.submit "Submit comment", class: "btn btn-primary" %>
+      <% end %>
+      <br>
+    <%= link_to 'Back to lists', lists_path %>
+  </div>
+
+
+</div>
+
 </div>
